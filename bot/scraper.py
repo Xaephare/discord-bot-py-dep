@@ -1,7 +1,5 @@
-import h11
 import requests
 from bs4 import BeautifulSoup
-
 
 
 r = requests.get('https://apexlegendsstatus.com/current-map/battle_royale/pubs')
@@ -12,7 +10,10 @@ doc = BeautifulSoup(r.text, 'html.parser')
 mapList = doc.find("div", class_="row")
 mapRow = mapList.contents
 
-current, next, next2 = mapRow[3:6]
-print(current.h3.string)
-print(next.h3.string, next.p.contents)
-print(next2.h3.string, next2.p.contents)
+map = list((mapRow[3:6]))
+time = []
+time.append(map[1].p.text.rsplit('starts', 1)[1])
+time.append(map[2].p.text.rsplit('starts', 1)[1])
+print(map[0].h3.string)
+print(map[1].h3.string, "starts"+time[0])
+print(map[2].h3.string, "starts"+time[1])
