@@ -12,22 +12,29 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 prfx = '!'
-bot = commands.Bot(command_prefix = prfx)
+client = commands.Bot(command_prefix = prfx)
 
-@bot.command()
-async def load(ctx, rotation):
-    bot.load_extension(f'cogs.{rotation}')
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} loaded successfully.')
 
-@bot.command()
-async def unload(ctx, rotation):
-    bot.unload_extension(f'cogs.{rotation}')
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} unloaded successfully.')
 
-for filename in os.listdir('./cogs'):
+@client.command()
+async def reload(ctx, extension):
+    client.reload_extension(f'cogs.{extension}')
+    await ctx.send(f'{extension} reloaded successfully.')
+
+for filename in os.listdir('bot/cogs'):
     if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
+        client.load_extension(f'cogs.{filename[:-3]}')
+
 
 #get the bot token from .env ...so secret
 load_dotenv()
 token = os.getenv('TOKEN')
-client = discord.Client()
 client.run(token)

@@ -12,9 +12,9 @@ class Rotation(commands.Cog):
         print('Bot is online.')
 
     #Commands
-    @commands.Command()
+    @commands.command()
     async def ping(self, ctx):
-        await ctx.send()
+        await ctx.send(f' {round(self.client.latency * 1000)}ms')
 
 def setup(client):
     client.add_cog(Rotation(client))
