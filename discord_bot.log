@@ -1,1 +1,2 @@
-2022-06-24 19:35:57,817:WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2022-06-25 17:00:48,370:WARNING:discord.client: PyNaCl is not installed, voice will NOT be supported
+2022-06-25 18:20:41,332:WARNING:discord.gateway: Shard ID None has stopped responding to the gateway. Closing and restarting.
