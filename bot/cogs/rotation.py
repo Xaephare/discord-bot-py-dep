@@ -21,7 +21,7 @@ class Rotation(commands.Cog):
     @commands.command()
     async def rotation(self, ctx):
         current = scraper()
-        await ctx.send(f'*On now:*\n`{current[0][0]}`\n*Upcoming:*\n `{current[0][1]}` in `{current[1][0]}`\n`{current[0][2]}` in `{current[1][1]}` ')
+        await ctx.send(f'*On now:*\n`{current[0][0]}`\n*Upcoming:*\n`{current[0][1]}` in `{current[1][0]}`\n`{current[0][2]}` in `{current[1][1]}` ')
 
         
 
