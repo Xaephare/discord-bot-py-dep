@@ -1,10 +1,8 @@
-import time
 import discord
 from discord.ext import commands, tasks
 from scraper import scraper
 
 
-once = False
 current = scraper()
 
 class Rotation(commands.Cog):
@@ -21,15 +19,14 @@ class Rotation(commands.Cog):
     #Loops
     @tasks.loop(minutes=1)
     async def scraperLoop(self):
-        global current, once
-        t = time.localtime()
-        currentTime = time.strftime("%H:%M:%S", t)
+        global current
         current = scraper()
-        if current[0][0] == "World's Edge" and once == False:
-            print("World's edge is on", currentTime) #for testing
-            once = True
-        elif current[0][0] == "Olympus" or current[0][0] == "Storm Point":
-            once = False
+
+    @tasks.loop(minutes=1)
+    async def artisanPing(self): #i will make this modular in future but for now just need it working
+        if current[0][1] == "World's Edge" and current[1][0] == " 5 mins":
+            channel = self.client.get_channel(994396674363506728)
+            await channel.send("<@!429917352579039232> Guess what's on in 5 minutes.")
 
     #Commands
     @commands.command()
@@ -40,6 +37,15 @@ class Rotation(commands.Cog):
     async def rotation(self, ctx):
         global current
         await ctx.send(f'*On now:*\n`{current[0][0]}`\n*Upcoming:*\n`{current[0][1]}` in `{current[1][0]}`\n`{current[0][2]}` in `{current[1][1]}` ')
+
+    @commands.command()
+    async def loop(self, ctx):
+        try:
+            self.artisanPing.start() # start the loop if it isn't currently running
+            await ctx.send("Started pinging <@!429917352579039232>")
+        except: # happens if the loop is already running
+            self.artisanPing.cancel() # if so, cancel the loop
+            await ctx.send("Stopped pinging <@!429917352579039232>")
 
 def setup(client):
     client.add_cog(Rotation(client))
