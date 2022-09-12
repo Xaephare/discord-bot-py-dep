@@ -18,17 +18,17 @@ client = commands.Bot(command_prefix = prfx, intents=intents)
 
 @client.command()
 async def load(ctx, extension):
-    client.load_extension(f'cogs.{extension}')
+    await client.load_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} loaded successfully.')
 
 @client.command()
 async def unload(ctx, extension):
-    client.unload_extension(f'cogs.{extension}')
+    await client.unload_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} unloaded successfully.')
 
 @client.command()
 async def reload(ctx, extension):
-    client.reload_extension(f'cogs.{extension}')
+    await client.reload_extension(f'cogs.{extension}')
     await ctx.send(f'{extension} reloaded successfully.')
 
 for filename in os.listdir('./cogs'):
