@@ -12,6 +12,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 intents = discord.Intents.default()
+intents.members = True
 prfx = '!'
 client = commands.Bot(command_prefix = prfx, intents=intents)
 
