@@ -11,8 +11,9 @@ handler = logging.FileHandler(filename='discord_bot.log', encoding='utf-8', mode
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
+intents = discord.Intents.default()
 prfx = '!'
-client = commands.Bot(command_prefix = prfx)
+client = commands.Bot(command_prefix = prfx, intents=intents)
 
 @client.command()
 async def load(ctx, extension):
